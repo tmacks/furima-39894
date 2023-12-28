@@ -22,8 +22,9 @@
 | explanation      | text       | null: false                    |
 | condition_id     | integer    | null: false                    |
 | charge_id        | integer    | null: false                    |
-| prefectures_id   | integer    | null: false                    |
+| prefecture_id    | integer    | null: false                    |
 | days_required_id | integer    | null: false                    |
+| category_id      | integer    | null: faise                    |
 | price            | integer    | null: false                    |
 | user             | references | null: false, foreign_key: true |
 
@@ -42,11 +43,11 @@ belongs_to :user
 belongs_to :item
 has_one :address
 
-## addressテーブル
+## addressesテーブル
 | Column          | Type       | Options                        |
 | --------------- | ---------- | ------------------------------ |
 | post_code       | string     | null: false                    |
-| prefectures_id  | integer    | null: false                    |
+| prefecture_id   | integer    | null: false                    |
 | municipality    | string     | null: false                    |
 | street_address  | string     | null: false                    |
 | building_name   | string     |                                |
