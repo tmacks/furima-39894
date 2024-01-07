@@ -9,14 +9,8 @@ class Item < ApplicationRecord
   belongs_to :prefecture
   has_one_attached :image
 
-  validates :name, :string, presence: true
-  validates 
-  validates
-  validates
-  validates
-  validates
-  validates
-  validates
-  validates
+  validates :name, :explanation, :condition_id, :charge_id, :prefecture_id, :days_required_id, :category_id, :price, :user, presence: true
+  validates :condition_id, :charge_id, :prefecture_id, :days_required_id, :category_id, numericality: { other_than: 1 } 
+ 
 
 end
