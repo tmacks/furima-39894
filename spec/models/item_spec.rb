@@ -31,32 +31,32 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include("Explanation can't be blank")
       end
 
-      it 'カテゴリーの情報が空では出品できない' do
-        @item.category_id = ''
+      it 'カテゴリーの情報が未選択では出品できない' do
+        @item.category_id = '1'
         @item.valid?
         expect(@item.errors.full_messages).to include("Category can't be blank")
       end
 
-      it '商品の状態が空では出品できない' do
-        @item.condition_id = ''
+      it '商品の状態が未選択では出品できない' do
+        @item.condition_id = '1'
         @item.valid?
         expect(@item.errors.full_messages).to include("Condition can't be blank")
       end
 
-      it '配送料の負担の情報が空では出品できない' do
-        @item.charge_id = ''
+      it '配送料の負担の情報が未選択では出品できない' do
+        @item.charge_id = '1'
         @item.valid?
         expect(@item.errors.full_messages).to include("Charge can't be blank")
       end
 
-      it '発送元の地域の情報が空では出品できない' do
-        @item.prefecture_id = ''
+      it '発送元の地域の情報が未選択では出品できない' do
+        @item.prefecture_id = '1'
         @item.valid?
         expect(@item.errors.full_messages).to include("Prefecture can't be blank")
       end
 
-      it '発送までの日数の情報が空では出品できない' do
-        @item.days_required_id = ''
+      it '発送までの日数の情報が未選択では出品できない' do
+        @item.days_required_id = '1'
         @item.valid?
         expect(@item.errors.full_messages).to include("Days required can't be blank")
       end
@@ -83,6 +83,12 @@ RSpec.describe Item, type: :model do
         @item.price = 'abc'
         @item.valid?
         expect(@item.errors.full_messages).to include('Price is not a number')
+      end
+
+      it 'ユーザーが紐づいていないと保存できない' do
+        @item.user = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include('User must exist')
       end
     end
   end

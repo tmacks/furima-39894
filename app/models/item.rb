@@ -14,6 +14,6 @@ class Item < ApplicationRecord
   validates :condition_id, :charge_id, :prefecture_id, :days_required_id, :category_id,
             numericality: { other_than: 1, message: "can't be blank" }
 
-  validates :price, allow_blank: true, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999 },
-                    format: { with: /\A[0-9]+\z/ }
+  validates :price, allow_blank: true,
+                    numericality: { only_integer: true, greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999 }
 end
