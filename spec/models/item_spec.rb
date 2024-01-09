@@ -6,7 +6,6 @@ RSpec.describe Item, type: :model do
   end
 
   describe '商品出品' do
-
     context '商品出品できるとき' do
       it '全ての情報が正しく入力されていれば出品できる' do
         expect(@item).to be_valid
@@ -25,7 +24,6 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Name can't be blank")
       end
-
 
       it '商品の説明が空では出品できない' do
         @item.explanation = ''
@@ -72,25 +70,20 @@ RSpec.describe Item, type: :model do
       it '価格が¥299以下だと出品できない' do
         @item.price = '100'
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price must be greater than or equal to 300")
+        expect(@item.errors.full_messages).to include('Price must be greater than or equal to 300')
       end
 
       it '価格が¥10000000以上だと出品できない' do
         @item.price = '10000000'
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price must be less than or equal to 9999999")
+        expect(@item.errors.full_messages).to include('Price must be less than or equal to 9999999')
       end
-
 
       it '価格が半角数値以外では出品できない' do
         @item.price = 'abc'
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price is not a number")
+        expect(@item.errors.full_messages).to include('Price is not a number')
       end
-
     end
-
-
   end
-
 end
