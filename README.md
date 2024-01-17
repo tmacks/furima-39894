@@ -49,7 +49,7 @@ has_one :address
 | post_code       | string     | null: false                    |
 | prefecture_id   | integer    | null: false                    |
 | municipality    | string     | null: false                    |
-| sretreet_addss  | string     | null: false                    |
+| street_address  | string     | null: false                    |
 | building_name   | string     |                                |
 | telephonenumber | string     | null: false                    |
 | order           | references | null: false, foreign_key: true |
