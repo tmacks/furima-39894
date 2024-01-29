@@ -8,7 +8,6 @@ RSpec.describe OrderAddress, type: :model do
     end
 
     context '内容に問題ない場合' do
-
       it 'すべての値が正しく入力されていれば保存できること' do
         expect(@order_address).to be_valid
       end
@@ -20,7 +19,7 @@ RSpec.describe OrderAddress, type: :model do
     end
 
     context '内容に問題がある場合' do
-      it "tokenが空では登録できないこと" do
+      it 'tokenが空では登録できないこと' do
         @order_address.token = nil
         @order_address.valid?
         expect(@order_address.errors.full_messages).to include("Token can't be blank")
@@ -33,7 +32,7 @@ RSpec.describe OrderAddress, type: :model do
       it 'post_codeは「3桁ハイフン4桁でないと保存できないこと' do
         @order_address.post_code = '1234567'
         @order_address.valid?
-        expect(@order_address.errors.full_messages).to include("Post code is invalid. Include hyphen(-)")
+        expect(@order_address.errors.full_messages).to include('Post code is invalid. Include hyphen(-)')
       end
       it 'prefecture_idが空では保存できないこと' do
         @order_address.prefecture_id = ''
@@ -58,11 +57,8 @@ RSpec.describe OrderAddress, type: :model do
       it 'telephonenumberは10桁以上11桁以内の半角数値のみ保存可能なこと' do
         @order_address.telephonenumber = '12345'
         @order_address.valid?
-        expect(@order_address.errors.full_messages).to include("Telephonenumber is invalid.10 digits or more and 11 digits or less")
+        expect(@order_address.errors.full_messages).to include('Telephonenumber is invalid.10 digits or more and 11 digits or less')
       end
-
-
     end
   end
-
 end
