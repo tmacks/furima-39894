@@ -1,13 +1,19 @@
 class OrdersController < ApplicationController
     before_action :set_item, only: [:index, :create ]
-
+    before_action :authenticate_user!
     def index
-      # @item = Item.find_by(id: params[:item_id])
+      if @item.order.present?
+        redirect_to root_path
+      end
+      if @item.user_id == current_user.id
+        redirect_to root_path
+      end
       gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
       @order_address = OrderAddress.new
     end
 
     def create
+    
       @order_address = OrderAddress.new(order_params)
       if @order_address.valid?
         pay_item
