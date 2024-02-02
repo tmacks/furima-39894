@@ -5,6 +5,7 @@ RSpec.describe OrderAddress, type: :model do
     before do
       user = FactoryBot.create(:user)
       @order_address = FactoryBot.build(:order_address, user_id: user.id)
+      @item = FactoryBot.build(:item)
     end
 
     context '内容に問題ない場合' do
@@ -35,7 +36,7 @@ RSpec.describe OrderAddress, type: :model do
         expect(@order_address.errors.full_messages).to include('Post code is invalid. Include hyphen(-)')
       end
       it 'prefecture_idが空では保存できないこと' do
-        @order_address.prefecture_id = ''
+        @order_address.prefecture_id = '1'
         @order_address.valid?
         expect(@order_address.errors.full_messages).to include("Prefecture can't be blank")
       end
@@ -54,10 +55,30 @@ RSpec.describe OrderAddress, type: :model do
         @order_address.valid?
         expect(@order_address.errors.full_messages).to include("Telephonenumber can't be blank")
       end
-      it 'telephonenumberは10桁以上11桁以内の半角数値のみ保存可能なこと' do
+      it 'telephonenumberは9桁以下では登録できないこと' do
         @order_address.telephonenumber = '12345'
         @order_address.valid?
         expect(@order_address.errors.full_messages).to include('Telephonenumber is invalid.10 digits or more and 11 digits or less')
+      end
+      it 'telephonenumberは12桁以上では登録できないこと' do
+        @order_address.telephonenumber = '12345678910123'
+        @order_address.valid?
+        expect(@order_address.errors.full_messages).to include('Telephonenumber is invalid.10 digits or more and 11 digits or less')
+      end
+      it 'telephonenumberは半角数字以外が含まれている場合、登録できないことこと' do
+        @order_address.telephonenumber = 'abc'
+        @order_address.valid?
+        expect(@order_address.errors.full_messages).to include('Telephonenumber is invalid.10 digits or more and 11 digits or less')
+      end
+      it 'user_idが空だと登録できないこと' do
+        @order_address.user_id = ''
+        @order_address.valid?
+        expect(@order_address.errors.full_messages).to include("User can't be blank")
+      end
+      it 'item_idが空だと登録できないこと' do
+        @order_address.item_id = ''
+        @order_address.valid?
+        expect(@order_address.errors.full_messages).to include("Item can't be blank")
       end
     end
   end
