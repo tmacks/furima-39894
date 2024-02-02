@@ -19,10 +19,11 @@ class ItemsController < ApplicationController
   end
 
   def show
-    
   end
 
   def edit
+    redirect_to root_path if @item.order.present?
+
     return if @item.user_id == current_user.id
 
     redirect_to root_path
@@ -35,12 +36,14 @@ class ItemsController < ApplicationController
       render :edit, status: :unprocessable_entity
     end
   end
-  
+
   def destroy
     return if @item.user_id == current_user.id
+
     @item.destroy
     redirect_to root_path
   end
+
   private
 
   def item_params
