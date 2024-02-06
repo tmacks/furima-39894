@@ -2,7 +2,7 @@ class OrdersController < ApplicationController
   before_action :set_item, only: [:index, :create]
   before_action :authenticate_user!
   def index
-    redirect_to root_path if @item.order.present? && @item.user_id == current_user.id
+    redirect_to root_path if @item.order.present? || @item.user_id == current_user.id
      
     gon.public_key = ENV['PAYJP_PUBLIC_KEY']
     @order_address = OrderAddress.new
